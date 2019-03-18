@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>  
+    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_HTMLorMML'>
+    </script>
+    <title><%= full_title(yield(:title)) %></title>
+    <%= favicon_link_tag image_path("tamu.png") %>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all',
+                                              'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= render 'layouts/shim' %>
+  </head>
+  <body>
+    <script type="text/javascript"> 
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+        }
+      });
+    </script>
+    <script type="text/javascript">
+      function mathjax() {
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        MathJax.Hub.Queue(["Reprocess",MathJax.Hub]);
+      }
+  </script>
+    <%= render 'layouts/header' %>
+    <div class="container">
+      <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>"><%= message %></div>
+      <% end %>
+      <%= yield %>
+      <%#= debug(params) if Rails.env.development? %>
+    </div>
+    <%= render 'layouts/footer' %>
+  </body>
+</html>
