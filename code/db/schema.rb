@@ -54,6 +54,8 @@ ActiveRecord::Schema.define(version: 20190328210729) do
     t.datetime "updated_at", null: false
     t.bigint "topic_id"
     t.bigint "question_type_id"
+    t.bigint "num_of_attempts"
+    t.bigint "correct_attempts"
     t.index ["question_type_id"], name: "index_problems_on_question_type_id"
     t.index ["topic_id"], name: "index_problems_on_topic_id"
   end
