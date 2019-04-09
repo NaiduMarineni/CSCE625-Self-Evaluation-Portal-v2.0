@@ -1,0 +1,20 @@
+    
+<% provide(:title, 'All Statistics') %>
+<h1>All Statistics</h1>
+
+
+
+<ul class="problems">
+  <% @problems.each do |problem| %>
+    <%= problem.question %> <br>
+    Total Number of correct attempts :
+    <%= (problem.correct_attempts ||=0) %> <br>
+    Total Number of attempts :
+    <%= (problem.num_of_attempts ||=0) %> <br> 
+    <br>
+    
+
+    
+  <% end %>
+</ul>
+
