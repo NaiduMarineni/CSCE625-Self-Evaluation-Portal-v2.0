@@ -11,6 +11,10 @@ Then(/^I click View Problems/) do
   visit problems_path
 end
 
+Then(/^I click View Statistics/) do
+  visit statistics_path
+end
+
 Then(/^I click Create new topic$/) do
   visit new_topic_path 
 end
