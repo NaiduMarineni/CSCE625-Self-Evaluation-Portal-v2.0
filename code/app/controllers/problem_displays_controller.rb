@@ -95,6 +95,11 @@ class ProblemDisplaysController < ApplicationController
       end
       while(i<=@tillid)
         @problem = Problem.find(session[:problems][i])
+         @problem.num_of_attempts ||=0
+        @problem.num_of_attempts = @problem.num_of_attempts+1
+        print "total attemps"
+        print  @problem.num_of_attempts
+        print "prined"
         @topic = @problem.topic
         if(@problem.question_type.question_type == "MCQ")
           @correct_answer = @problem.options.where("is_answer = true").pluck(:id)
@@ -112,6 +117,13 @@ class ProblemDisplaysController < ApplicationController
           end
           if ((@correct_answer - @ans).empty? && (@ans - @correct_answer).empty?)
             result += 1
+            @problem.correct_attempts||=0
+           
+            @problem.correct_attempts += 1
+            print "correct ans is" 
+            print @problem.correct_attempts
+            print "printed"
+            print  @problem.correct_attempts
             session[:topic_results][@topic.id.to_s] += 1
             session[:results][i.to_s] = true
           else
@@ -123,6 +135,9 @@ class ProblemDisplaysController < ApplicationController
           accuracy = jarow.getDistance(@correct_answer.downcase, @your_answer.downcase)
           if(accuracy >= 0.7)
             result += 1
+            @problem.correct_attempts||=0
+            @problem.correct_attempts += 1
+            print @problem.correct_attempts
             session[:topic_results][@topic.id.to_s] += 1
             session[:results][i.to_s] = true
           else
@@ -131,7 +146,9 @@ class ProblemDisplaysController < ApplicationController
         end
         session[:topic_problems][@topic.id.to_s] += 1
         i += 1
+        @problem.save!
       end
+      
       session[:result] = result
     end
   end
