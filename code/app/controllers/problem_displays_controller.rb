@@ -1,4 +1,6 @@
 class ProblemDisplaysController < ApplicationController
+  before_action :require_valid_user!
+  
   def quiz
     @topics = Topic.all
   end

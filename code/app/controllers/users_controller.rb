@@ -1,24 +1,29 @@
 class UsersController < ApplicationController
+    # skip_before_action :require_valid_user!, except: [:user_logout]
+    before_action :reset_session, except: [:user_signup, :user_signup_post]
+
     def user_login
     end
 
     def user_login_post
-        user = User.find_by(email: params[:session][:email])
-        if user && user.authenticate(params[:session][:password]) && user.activated
-          # if authentication works redirect to Q&A home page
-          session[:user_id] = user.id
-          params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-          redirect_back_or user
-        #   redirect_to(session[:forwarding_url] || default)
-        #   session.delete(:forwarding_url)
+        reset_session
+        @user = User.find_by(email: user_params[:email])
+        
+        if @user && @user.authenticate(user_params[:password]) # && @user.activated # need to fix user activated
+          # if authentication works redirect to home page
+          # user_params[:remember_me] == '1' ? remember(@user) : forget(@user)
+          session[:user_id] = @user.id
+          flash[:success] = 'Thank you for loging in. You can start your evaluation now'
+          redirect_to root_path
         else
         # if authentication fails then redirect to user_login page 
-          if user && !user.activated
-            flash.now[:danger] = 'Account not activated. Please sign up first.'
+          if @user #&& !@user.activated #need to fix this
+            flash.now[:danger] = 'Account not activated. Please check with your registered email!.'
           else
             flash.now[:danger] = 'Invalid email/password combination.'
+            # flash[:error] = 'Invalid email/password combination'
           end
-          render 'new'
+          redirect_to user_login_path
         end
     end
 
@@ -27,18 +32,25 @@ class UsersController < ApplicationController
     end
 
     def user_signup_post
-        @user = User.new(user_params)    # Not the final implementation!
+        @user = User.new(user_params)
         if @user.save
           # Handle a successful save.
-          flash[:success] = "Welcome to the 625 Self-Evaluation!"
-          redirect_to :action=>'home', controller=>'static_pages'
+          flash[:success] = "Please log in to continue with CSCE 625 Evaluation!"
+          # start session here
+          redirect_to root_path
         else
-          render 'new'
+          flash[:success] = "Email/Username already exists!"
+          redirect_to user_signup_path
         end
     end
 
+    def user_logout
+      reset_session
+      redirect_to user_login_path
+    end
+
     def user_params
-        params.require(:user).permit(:name, :email, :password)
+      params.require(:user).permit(:email, :password, :password_confirmation)
     end
 
 end
