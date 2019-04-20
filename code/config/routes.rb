@@ -5,12 +5,8 @@ Rails.application.routes.draw do
   resources :instructors
   resources :topics
   resources :problems
-<<<<<<< HEAD
-  resources :statistics
-=======
   resources :statistics 
 
->>>>>>> b060b153779441c47642b6516cf3fa11e03c32e5
   resources :password_resets,     only: [:new, :create, :edit, :update]
 
   get '/reset' ,  to: 'statistics#reset'
@@ -30,6 +26,7 @@ Rails.application.routes.draw do
   post '/user_login_post', to: 'users#user_login_post'
   get '/user_signup', to: 'users#user_signup'
   post '/user_signup_post', to: 'users#user_signup_post'
+  get '/user_logout', to: 'users#logout'
 
 
   get '/new_topic', to: 'topics#new'

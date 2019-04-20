@@ -1,9 +1,5 @@
 class StatisticsController < ApplicationController
     def index
-<<<<<<< HEAD
-    
-    end
-=======
         @problems =Problem.all
     end
     
@@ -19,5 +15,4 @@ class StatisticsController < ApplicationController
     end
 
             
->>>>>>> b060b153779441c47642b6516cf3fa11e03c32e5
 end

@@ -54,11 +54,7 @@ ActiveRecord::Schema.define(version: 20190404023910) do
     t.datetime "updated_at", null: false
     t.bigint "topic_id"
     t.bigint "question_type_id"
-<<<<<<< HEAD
-    t.bigint "num_of_attempts"
-=======
     t.bigint "num_of_attempts", default: 0
->>>>>>> b060b153779441c47642b6516cf3fa11e03c32e5
     t.bigint "correct_attempts"
     t.index ["question_type_id"], name: "index_problems_on_question_type_id"
     t.index ["topic_id"], name: "index_problems_on_topic_id"
