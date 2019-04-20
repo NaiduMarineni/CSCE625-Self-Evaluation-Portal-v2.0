@@ -12,4 +12,9 @@ module UsersHelper
     #         redirect_to user_login_path
     #     end
     # end
+
+    def user_logged_in?
+        !current_instructor.nil?
+    end
+      
 end

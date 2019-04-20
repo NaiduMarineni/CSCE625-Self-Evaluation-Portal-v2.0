@@ -14,8 +14,6 @@
               <li><%= link_to "View Problems", problems_path %></li>
               <li><%= link_to "View Statistics", statistics_path %></li>
               <li><%= link_to "Reset Statistics", reset_path %></li>
-              
-              
             </ul>
           </li>
           <li><%= link_to "Instructors", instructors_path %></li>
@@ -33,7 +31,11 @@
             </ul>
           </li>
         <% else %>
-          <li><%= link_to "Instructor log in", login_path %></li>
+          <% if user_logged_in? %>
+            <li><%= link_to "Log out", user_logout_path, method: :delete %></li>
+          <% else %>
+            <li><%= link_to "Instructor log in", login_path %></li>
+          <% end %>
         <% end %>
         <li><%= link_to "Help", help_path %></li>
       </ul>

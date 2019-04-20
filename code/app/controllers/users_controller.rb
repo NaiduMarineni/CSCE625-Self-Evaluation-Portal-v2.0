@@ -39,16 +39,18 @@ class UsersController < ApplicationController
           # start session here
           redirect_to root_path
         else
-          render 'new'
+          flash[:success] = "Email already exists!"
+          redirect_to user_signup_path
         end
     end
 
     def user_logout
       reset_session
+      redirect_to user_login_path
     end
 
     def user_params
-      params.require(:session).permit(:email, :password, :password_confirmation)
+      params.require(:user).permit(:email, :password, :password_confirmation)
     end
 
 end
