@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   resources :topics
   resources :problems
   resources :statistics 
-
   resources :password_resets,     only: [:new, :create, :edit, :update]
 
   get '/reset' ,  to: 'statistics#reset'
