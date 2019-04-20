@@ -14,13 +14,13 @@ class SessionsController < ApplicationController
       else
         flash.now[:danger] = 'Invalid email/password combination.'
       end
-
       render 'new'
     end
   end
 
   def destroy
     log_out if logged_in?
+    reset_session
     redirect_to root_url
   end
   

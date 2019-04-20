@@ -17,7 +17,7 @@ class UsersController < ApplicationController
           redirect_to root_path
         else
         # if authentication fails then redirect to user_login page 
-          if user #&& !@user.activated #need to fix this
+          if @user #&& !@user.activated #need to fix this
             flash.now[:danger] = 'Account not activated. Please check with your registered email!.'
           else
             flash.now[:danger] = 'Invalid email/password combination.'
