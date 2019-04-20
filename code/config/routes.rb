@@ -21,6 +21,14 @@ Rails.application.routes.draw do
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
 
+  #userlogin routes
+  get '/user_login', to: 'users#user_login'
+  post '/user_login_post', to: 'users#user_login_post'
+  get '/user_signup', to: 'users#user_signup'
+  post '/user_signup_post', to: 'users#user_signup_post'
+  delete '/user_logout', to: 'users#user_logout'
+
+
   get '/new_topic', to: 'topics#new'
   get '/new_problem', to: 'problems#new'
   # post '/new_topic', to: 'topics#create'
