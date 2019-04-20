@@ -9,7 +9,7 @@ class UsersController < ApplicationController
         reset_session
         @user = User.find_by(email: user_params[:email])
         
-        if user && @user.authenticate(user_params[:password]) # && @user.activated # need to fix user activated
+        if @user && @user.authenticate(user_params[:password]) # && @user.activated # need to fix user activated
           # if authentication works redirect to home page
           # user_params[:remember_me] == '1' ? remember(@user) : forget(@user)
           session[:user_id] = @user.id
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
         @user = User.new(user_params)
         if @user.save
           # Handle a successful save.
-          flash[:success] = "Welcome to the 625 Self-Evaluation!"
+          flash[:success] = "Please log in to continue with CSCE 625 Evaluation!"
           # start session here
           redirect_to root_path
         else
@@ -48,7 +48,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:username, :email, :password, :password_confirmation)
+      params.require(:session).permit(:email, :password, :password_confirmation)
     end
 
 end
