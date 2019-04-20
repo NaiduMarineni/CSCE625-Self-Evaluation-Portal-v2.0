@@ -13,7 +13,7 @@ class UsersController < ApplicationController
           # if authentication works redirect to home page
           # user_params[:remember_me] == '1' ? remember(@user) : forget(@user)
           session[:user_id] = @user.id
-          flash[:success] = 'Welcome back!'
+          flash[:success] = 'Thank you for loging in. You can start your evaluation now'
           redirect_to root_path
         else
         # if authentication fails then redirect to user_login page 
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
           # start session here
           redirect_to root_path
         else
-          flash[:success] = "Email already exists!"
+          flash[:success] = "Email/Username already exists!"
           redirect_to user_signup_path
         end
     end
