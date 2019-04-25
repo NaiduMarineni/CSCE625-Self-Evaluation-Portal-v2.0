@@ -45,4 +45,10 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'static_pages#home'
+  
+  # Routes for statistics
+  get 'display_stats', to: 'statistics#display_stats'
+  get 'reset_stats', to: 'statistics#reset_stats'
+  get 'reset_by_topic', to: 'statistics#reset_by_topic'
+  
 end

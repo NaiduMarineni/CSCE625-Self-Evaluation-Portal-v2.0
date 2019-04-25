@@ -1,0 +1,32 @@
+<% provide(:title, 'All Statistics') %>
+<h3> Statistics for <%=@topic_chosen%> </h3>
+<ul class="problems">
+  <% @problems.each do |problem| %>
+    <%= problem.question %> <br>
+    Total Number of Responses :
+    <%= (problem.num_of_attempts ||=0) %>
+    <% if problem.num_of_attempts == 0 %>
+      <%percent = 0 %>
+    <% else %>
+      <%percent = problem.correct_attempts/problem.num_of_attempts%>
+    <% end %>
+    
+    <div class="progress" style="margin: 20px 0px; height: 25px;">
+      <% if problem.num_of_attempts == 0 %>
+        <div class="progress-bar" role="progressbar" style="width: <%= (100) %>%;">
+        No Responses yet
+        </div>
+      <% else %>
+        <div class="progress-bar progress-bar-success" role="progressbar" style="width: <%= (percent*100) %>%;"><%= (percent*100).to_s + "%"  %>
+        Correct Answers
+        </div>
+        <div class="progress-bar progress-bar-danger" role="progressbar" style="width: <%= ((1.0-percent)*100) %>%;"><%= ((1-percent)*100).to_s + "%"  %>
+        Incorrect Answers
+        </div>
+      <% end %>
+    </div>
+    
+  <% end %>
+</ul>
+
+

@@ -1,22 +1,16 @@
+<% provide(:title, 'Topics Available') %>
 
-    
-<% provide(:title, 'All Statistics') %>
-<h1>All Statistics</h1>
+<!--<h2><%= link_to "Create New Topic", new_topic_path %></h2>-->
 
+<h3> Select Topic to display Statistics</h3>
 
-
-<ul class="problems">
-  <% @problems.each do |problem| %>
-    <%= problem.question %> <br>
-    Total Number of correct attempts :
-    <%= (problem.correct_attempts ||=0) %> <br>
-    Total Number of attempts :
-    <%= (problem.num_of_attempts ||=0) %> <br> 
-    <br>
-    
-
-    
+<ul class="topics">
+  <% @topics.each do |topic| %>
+    <li>
+    <%= link_to topic.name, display_stats_url(:topic_to_display => topic.id) %>
+    </li>
   <% end %>
 </ul>
-
-
+</li>
+<br>
+<font size = "+2"> <%= link_to "Display All Statistics", display_stats_url(:topic_to_display => 'all') %> </font>
