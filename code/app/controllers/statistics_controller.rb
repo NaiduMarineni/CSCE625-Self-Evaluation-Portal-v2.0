@@ -12,15 +12,23 @@ class StatisticsController < ApplicationController
         end
     end
     
-    def reset
-        @problems =Problem.all
+    def reset_stats
+        @topics = Topic.all
+    end
+    
+    def reset_by_topic
+        topic_chosen = params[:topic_to_reset]
+        if topic_chosen == 'all'
+            @problems = Problem.all
+        else 
+            @problems = Problem.where(topic: [topic_chosen])
+        end
         @problems.each do |problem|
             problem.correct_attempts=0
             problem.num_of_attempts=0
             problem.save!
         end
-        redirect_to statistics_path
-        
+        redirect_to reset_stats_path
     end
 
             

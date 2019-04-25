@@ -48,4 +48,7 @@ Rails.application.routes.draw do
   
   # Routes for statistics
   get 'display_stats', to: 'statistics#display_stats'
+  get 'reset_stats', to: 'statistics#reset_stats'
+  get 'reset_by_topic', to: 'statistics#reset_by_topic'
+  
 end
