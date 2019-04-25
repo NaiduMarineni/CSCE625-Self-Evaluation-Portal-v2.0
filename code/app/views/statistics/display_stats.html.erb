@@ -1,6 +1,5 @@
-
-    
 <% provide(:title, 'All Statistics') %>
+<h3> Statistics for <%=@topic_chosen%> </h3>
 <ul class="problems">
   <% @problems.each do |problem| %>
     <%= problem.question %> <br>
