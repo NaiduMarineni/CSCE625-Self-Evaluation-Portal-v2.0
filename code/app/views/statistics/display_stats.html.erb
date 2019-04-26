@@ -5,10 +5,12 @@
     <%= problem.question %> <br>
     Total Number of Responses :
     <%= (problem.num_of_attempts ||=0) %>
+    Correct Attempts :
+    <%= (problem.correct_attempts ||=0) %>
     <% if problem.num_of_attempts == 0 %>
       <%percent = 0 %>
     <% else %>
-      <%percent = problem.correct_attempts/problem.num_of_attempts%>
+      <%percent = (problem.correct_attempts).to_f/problem.num_of_attempts%>
     <% end %>
     
     <div class="progress" style="margin: 20px 0px; height: 25px;">
@@ -17,10 +19,10 @@
         No Responses yet
         </div>
       <% else %>
-        <div class="progress-bar progress-bar-success" role="progressbar" style="width: <%= (percent*100) %>%;"><%= (percent*100).to_s + "%"  %>
+        <div class="progress-bar progress-bar-success" role="progressbar" style="width: <%= (percent*100).round(2) %>%;"> <%= (percent*100.0).round(2).to_s + "%"  %>
         Correct Answers
         </div>
-        <div class="progress-bar progress-bar-danger" role="progressbar" style="width: <%= ((1.0-percent)*100) %>%;"><%= ((1-percent)*100).to_s + "%"  %>
+        <div class="progress-bar progress-bar-danger" role="progressbar" style="width: <%= ((1.0-percent)*100.0).round(2) %>%;"><%= ((1-percent)*100.0).round(2).to_s + "%"  %>
         Incorrect Answers
         </div>
       <% end %>
