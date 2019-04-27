@@ -45,6 +45,12 @@ Given (/the following instructors exist/) do |instructors_table|
   end
 end
 
+Given (/the following students exist/) do |users_table|
+  users_table.hashes.each do |user|
+    User.create! user
+  end
+end
+
 # Single-line step scoper
 When /^(.*) within (.*[^:])$/ do |step, parent|
   with_scope(parent) { When step }
