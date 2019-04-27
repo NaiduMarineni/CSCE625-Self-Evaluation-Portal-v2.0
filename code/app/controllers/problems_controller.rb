@@ -100,7 +100,7 @@ class ProblemsController < ApplicationController
 
   def show
     @problem = Problem.find(params[:id])
-    @correct_answers = Array.new      
+    @correct_answers = Array.new
     if(@problem.question_type.question_type == "MCQ")
       @correct_answers = @problem.options.where("is_answer = true").pluck(:answer)
     end
@@ -119,14 +119,13 @@ class ProblemsController < ApplicationController
 
   def update
     @problem = Problem.find(params[:id])
-
     # image file upload here
     img_file =  problem_params[:img].tempfile.open.read.force_encoding(Encoding::UTF_8)
-    @problem.img = Base64.encode64(img_file)
-    puts @problem.img
+    problem_params[:img] = Base64.encode64(img_file)
 
     if problem_params[:question_type_id].to_i == 1
       options = option_params
+      puts problem_params[:img]
       if @problem.update_attributes(problem_params)
         options_not_nil = false
         if !options[:correct].nil?
@@ -210,7 +209,7 @@ class ProblemsController < ApplicationController
   private
 
   def problem_params
-    params.require(:problem).permit(:question, :answer, :remark, :topic_id, :question_type_id, :img)
+    @problem_params ||= params.require(:problem).permit(:question, :answer, :remark, :topic_id, :question_type_id, :img, :options, :correct)
   end
 
   def instructor_params
