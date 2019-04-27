@@ -31,6 +31,20 @@ module WithinHelpers
 end
 World(WithinHelpers)
 
+Given (/the following topics exist/) do |topics_table|
+  topics_table.hashes.each do |topic|
+    #print(topic)
+    Topic.create! topic
+  end
+end
+
+Given (/the following instructors exist/) do |instructors_table|
+  instructors_table.hashes.each do |instructor|
+    #print(instructor)
+    Instructor.create! instructor
+  end
+end
+
 # Single-line step scoper
 When /^(.*) within (.*[^:])$/ do |step, parent|
   with_scope(parent) { When step }
