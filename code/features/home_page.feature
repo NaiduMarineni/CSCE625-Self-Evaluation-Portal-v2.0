@@ -10,3 +10,4 @@ Feature: home page viewed by students and instructors
     And I should see "Help"
     And I should see "About"
     And I should see "Contact"
+    And I should see "Instructor log in"

@@ -3,7 +3,14 @@ Feature: sign up by instructor
   In order to manage the website
   As an instructor
   I want to be able to sign up
-  
+  Background:
+    Given the following instructors exist:
+      | name        | email           | password     |password_confirmation | admin | activated |
+      | admin       | admin@admin.com |123456        |123456                |  true | true      |
+      | Hang Li     |hangli@tamu.edu  |123456        |123456                | true  | true      |
+      | Hanna       |hanna@tamu.edu   |123456        |123456                | true  | true      |
+      | Smith       |smith@tamu.edu   |123456        |123456                | true  | false     |
+
   Scenario: 'Standard Instructor Log in with out registration'
     When I am on the signup page 
     Then I should see "Sign up"
