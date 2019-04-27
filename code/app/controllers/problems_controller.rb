@@ -1,5 +1,7 @@
+require 'tempfile'
+
 class ProblemsController < ApplicationController
-    before_action :logged_in_instructor, only: [:new, :create, :index, :show, :edit, :update, :destroy]
+  before_action :logged_in_instructor, only: [:new, :create, :index, :show, :edit, :update, :destroy]
 
   def new
     @topics = Topic.all
@@ -13,6 +15,12 @@ class ProblemsController < ApplicationController
   def create
     @problem = Problem.new(problem_params)
     
+    # handle images here ... convert to base64
+    # image file upload here
+    img_file =  problem_params[:img].tempfile.open.read.force_encoding(Encoding::UTF_8)
+    @problem.img = Base64.encode64(img_file)
+    puts @problem.img
+
     # Problem is MCQ
     if @problem[:question_type_id] == 1
       if @problem.save
@@ -111,6 +119,12 @@ class ProblemsController < ApplicationController
 
   def update
     @problem = Problem.find(params[:id])
+
+    # image file upload here
+    img_file =  problem_params[:img].tempfile.open.read.force_encoding(Encoding::UTF_8)
+    @problem.img = Base64.encode64(img_file)
+    puts @problem.img
+
     if problem_params[:question_type_id].to_i == 1
       options = option_params
       if @problem.update_attributes(problem_params)
@@ -196,7 +210,7 @@ class ProblemsController < ApplicationController
   private
 
   def problem_params
-    params.require(:problem).permit(:question, :answer, :remark, :topic_id, :question_type_id)
+    params.require(:problem).permit(:question, :answer, :remark, :topic_id, :question_type_id, :img)
   end
 
   def instructor_params

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190404023910) do
+ActiveRecord::Schema.define(version: 20190427170045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20190404023910) do
     t.bigint "question_type_id"
     t.bigint "num_of_attempts", default: 0
     t.bigint "correct_attempts"
+    t.string "img"
     t.index ["question_type_id"], name: "index_problems_on_question_type_id"
     t.index ["topic_id"], name: "index_problems_on_topic_id"
   end
