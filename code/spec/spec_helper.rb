@@ -22,8 +22,10 @@ require 'database_cleaner'
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+#Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+
 RSpec.configure do |config|
-  
+  config.infer_spec_type_from_file_location!
   # config.before(:suite) do
   #   DatabaseCleaner.strategy = :truncation
   # end
