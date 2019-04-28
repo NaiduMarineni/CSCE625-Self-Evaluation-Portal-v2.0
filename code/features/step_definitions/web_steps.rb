@@ -56,7 +56,12 @@ Given (/the following problems exist/) do |problems_table|
     topic  = Topic.find_by_name(problem[:topic])
     q_type = QuestionType.find_by_question_type(problem[:question_type])
     p = topic.problems.create!(question: problem[:question], question_type: q_type, remark: problem[:remark])
-    puts topic
+  end
+end
+
+Given (/the following students exist/) do |users_table|
+  users_table.hashes.each do |user|
+    User.create! user
   end
 end
 
