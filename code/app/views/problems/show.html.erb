@@ -1,3 +1,13 @@
+<style>
+img {
+  display: block;
+  max-width:230px;
+  max-height:95px;
+  width: auto;
+  height: auto;
+}
+</style>
+
 <% provide(:title, "Problem "+@problem.id.to_s) %>
 <div class="row">
   <aside class="col-md-12">
@@ -8,7 +18,12 @@
 
       <h1>Question: </h1>
       <div class = "problemview"><%= simple_format(@problem.question) %></div>
-     
+      
+      <% if @problem.img.present? %>
+        <h1>Associated Image</h1>
+        <div class = "problemview"> <%= image_tag "data:image/jpeg;base64,#{@problem.img}", class: 'img-responsive img-thumbnail', width: '400', height: '400' %> <br></div>
+      <% end %>
+
       <h1>Answer: </h1>
       <div class="problemview">
         <% @correct_answers.each do |c_answer| %>
