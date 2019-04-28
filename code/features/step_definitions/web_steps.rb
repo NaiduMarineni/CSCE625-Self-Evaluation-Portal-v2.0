@@ -59,6 +59,27 @@ Given (/the following problems exist/) do |problems_table|
   end
 end
 
+Given (/the following MCQ problems exist/) do |problems_table|
+  problems_table.hashes.each do |problem|
+    topic  = Topic.find_by_name(problem[:topic])
+    q_type = QuestionType.find_by_question_type(problem[:question_type])
+    p = topic.problems.create!(question: problem[:question], question_type: q_type, remark: problem[:remark])
+    p.options.create!(answer: problem[:option1], is_answer: problem[:answer1]=='true'? true : false)
+    p.options.create!(answer: problem[:option2], is_answer: problem[:answer2]=='true'? true : false)
+    p.options.create!(answer: problem[:option3], is_answer: problem[:answer3]=='true'? true : false)
+    p.options.create!(answer: problem[:option4], is_answer: problem[:answer4]=='true'? true : false)
+  end
+end
+
+Given(/the following short problems exist/) do |short_problems_table|
+  short_problems_table.hashes.each do |short_problem|
+    topic = Topic.find_by_name(short_problem[:topic])
+    q_type = QuestionType.find_by_question_type(short_problem[:question_type])
+    p = topic.problems.create!(question: short_problem[:question], question_type: q_type, remark: short_problem[:remark], answer: short_problem[:answer])
+  end
+end
+
+
 Given (/the following students exist/) do |users_table|
   users_table.hashes.each do |user|
     User.create! user
