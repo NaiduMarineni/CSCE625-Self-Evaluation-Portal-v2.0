@@ -24,7 +24,6 @@ Feature: question management by instructor
   
     Given the following problems exist:
       | topic                                | question                                                                                                         |question_type   |remark                                                                                                           |
-      | Data Structures and Algorithms       | Quick sort divides the list using pivot and then sorts in recursive manner. It uses divide and conquer approach. |MCQ             |Quick sort divides the list using pivot and then sorts in recursive manner. It uses divide and conquer approach. |
       | Data Structures and Algorithms       | Quick sort algorithm is an example of?                                                                           |MCQ             |Quick sort divides the list using pivot and then sorts in recursive manner. It uses divide and conquer approach. |
       
 
