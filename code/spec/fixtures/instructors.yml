@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-rspec:
-  <<: *test
+# rspec:
+#   <<: *test
 admin:
   name: Admin
   email: admin@admin.com
