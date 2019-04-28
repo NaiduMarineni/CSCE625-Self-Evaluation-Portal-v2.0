@@ -14,6 +14,12 @@
 
       <h1>Question: </h1>
       <div class = "problemview"><%= simple_format(@problem.question) %></div>
+
+      <% if @problem.img.present? %>
+        <h1>Associated Image</h1>
+        <div class = "problemview"> <%= image_tag "data:image/jpeg;base64,#{@problem.img}", class: 'img-responsive img-thumbnail', width: '400', height: '400' %> <br></div>
+      <% end %>
+
       <h1>Your Answer: </h1>
       <%= form_for(:student) do |f| %>
         <% if (@problem.question_type.question_type!="MCQ") %>
