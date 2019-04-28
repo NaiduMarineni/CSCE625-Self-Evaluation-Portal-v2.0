@@ -1,3 +1,13 @@
+<style>
+img {
+  display: block;
+  max-width:230px;
+  max-height:95px;
+  width: auto;
+  height: auto;
+}
+</style>
+
 <%= form_for(@problem) do |f| %>
   <%= render 'shared/error_messages_problem', object: @problem %>
   
@@ -7,8 +17,25 @@
   <%= f.label :type %>
   <%= f.collection_select :question_type_id, @question_types, :id, :question_type%>
 
-  <%= f.label "Image" %>
-  <%= f.file_field :img %>
+  <% if @problem.img.present? %>
+    <%= f.label "Current Image" %>
+    <div class=row>
+      <div class=col-xs-6>
+        <%= image_tag "data:image/jpeg;base64,#{@problem.img}", id: 'q_img', class: 'img-responsive img-thumbnail', width: '400', height: '400' %>
+      </div>
+      <div class=col-xs-4>
+        <input type="button" name="remove" id="remove_img_btn" value="Remove" class="btn-sm btn-primary">
+      </div>
+    </div>
+    <br>
+    <%= f.label "Image Upload" %>
+    <%= f.file_field :img %>
+    <%# this to remove image default to Y - means image is present do nothing Y/N %>
+    <%= hidden_field_tag(:is_image, "Y") %>
+  <% else %>
+    <%= f.label "Image Upload" %>
+    <%= f.file_field :img %>
+  <% end %>
 
   <%= f.label :question %>
   <%= f.text_area :question, placeholder: "Enter Question here", class: 'form-control' %>
@@ -57,3 +84,22 @@
 
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 <% end %>
+
+<script>
+var init = function(){
+  // intialize event listeners here
+  $( "#remove_img_btn" ).click(function(){
+    fn_remove_img();
+  });
+}
+
+var fn_remove_img = function(){
+  document.getElementById('q_img').src = "#";
+  $("#problem_img").val('');
+  $("#is_image").val('N')
+}
+
+$( document ).ready(function() {
+    init();
+});
+</script>

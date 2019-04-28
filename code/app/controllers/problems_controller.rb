@@ -17,9 +17,11 @@ class ProblemsController < ApplicationController
     
     # handle images here ... convert to base64
     # image file upload here
-    img_file =  problem_params[:img].tempfile.open.read.force_encoding(Encoding::UTF_8)
-    @problem.img = Base64.encode64(img_file)
-    puts @problem.img
+    if problem_params[:img].present?
+      img_file =  problem_params[:img].tempfile.open.read.force_encoding(Encoding::UTF_8)
+      @problem.img = Base64.encode64(img_file)
+      puts @problem.img
+    end
 
     # Problem is MCQ
     if @problem[:question_type_id] == 1
@@ -119,13 +121,31 @@ class ProblemsController < ApplicationController
 
   def update
     @problem = Problem.find(params[:id])
-    # image file upload here
-    img_file =  problem_params[:img].tempfile.open.read.force_encoding(Encoding::UTF_8)
-    problem_params[:img] = Base64.encode64(img_file)
+
+    # image file upload here, check file upload size here
+    if problem_params[:img].present?
+      img_file =  problem_params[:img].tempfile.open.read.force_encoding(Encoding::UTF_8)
+      puts problem_params[:img].content_type
+      puts problem_params[:img].size
+      if (problem_params[:img].size.to_i > 30000) or !(['image/png', 'image/jpeg', 'image/jpg'].include? problem_params[:img].content_type)
+        flash.now[:danger] = "Please upload a valid image file that is less than 65KB in size!"
+        @topics = Topic.all
+        @question_types = QuestionType.all
+        @options = @problem.options
+        @links = @problem.links
+        render 'edit'
+        return
+      end
+      problem_params[:img] = Base64.encode64(img_file)
+    else
+      if params[:is_image] == 'N'
+        # remove image if the user clicked on remove image in the view
+        problem_params[:img] = ''
+      end
+    end
 
     if problem_params[:question_type_id].to_i == 1
       options = option_params
-      puts problem_params[:img]
       if @problem.update_attributes(problem_params)
         options_not_nil = false
         if !options[:correct].nil?
@@ -159,12 +179,10 @@ class ProblemsController < ApplicationController
               flash[:danger] = "Empty options were discarded."
             end
           end
-          
           # Save any links
           update_link
           flash[:success] = "Problem updated."    
           redirect_to @problem
-          
         else
           flash.now[:danger] = "Provide answers and correct choices for MCQ."
           @topics = Topic.all
@@ -188,10 +206,8 @@ class ProblemsController < ApplicationController
         render 'edit'
       elsif @problem.update_attributes(problem_params)
         flash[:success] = "Problem updated."
-        
         @problem.options.destroy_all
         update_link
-        
         redirect_to @problem
       else
         render 'new'
