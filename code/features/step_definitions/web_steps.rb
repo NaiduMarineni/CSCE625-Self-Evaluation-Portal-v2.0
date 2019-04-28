@@ -33,7 +33,6 @@ World(WithinHelpers)
 
 Given (/the following topics exist/) do |topics_table|
   topics_table.hashes.each do |topic|
-    #print(topic)
     Topic.create! topic
   end
 end
@@ -42,6 +41,22 @@ Given (/the following instructors exist/) do |instructors_table|
   instructors_table.hashes.each do |instructor|
     #print(instructor)
     Instructor.create! instructor
+  end
+end
+
+Given (/the following question types exist/) do |q_type_table|
+  q_type_table.hashes.each do |q_type|
+    print(q_type)
+    QuestionType.create! q_type
+  end
+end
+
+Given (/the following problems exist/) do |problems_table|
+  problems_table.hashes.each do |problem|
+    topic  = Topic.find_by_name(problem[:topic])
+    q_type = QuestionType.find_by_question_type(problem[:question_type])
+    p = topic.problems.create!(question: problem[:question], question_type: q_type, remark: problem[:remark])
+    puts topic
   end
 end
 
@@ -98,6 +113,16 @@ end
 
 When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
   select(value, :from => field)
+end
+
+When /^(?:|I )select question type "([^"]*)" from "([^"]*)"$/ do |value, field|
+  if value == 'MCQ'
+    option = find(:xpath, "//*[@id='#{field}']/option[1]").text
+  else
+    option = find(:xpath, "//*[@id='#{field}']/option[2]").text
+  end
+  puts option
+  select(option, :from => field)
 end
 
 When /^(?:|I )check "([^"]*)"$/ do |field|

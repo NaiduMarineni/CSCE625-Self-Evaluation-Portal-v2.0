@@ -1,9 +1,33 @@
 Feature: question management by instructor
-  
+
   In order to manage the problems
   As an instructor
   I want to be able to manage the problems
   
+  Background: 
+    Given the following topics exist:
+      | name |
+      | Data Structures and Algorithms |
+      | Programming |
+      | Basic Mathematics |
+    
+    Given the following instructors exist:
+      | name        |email            |password      |password_confirmation | admin | activated |
+      | admin       |admin@admin.com  |123456        |123456                | true  | true      |
+      | Hang Li     |hangli@tamu.edu  |123456        |123456                | true  | true      |
+      | Hanna       |hanna@tamu.edu   |123456        |123456                | true  | true      |
+   
+    Given the following question types exist:
+      | question_type |
+      | MCQ           |
+      | Short Answer  |
+  
+    Given the following problems exist:
+      | topic                                | question                                                                                                         |question_type   |remark                                                                                                           |
+      | Data Structures and Algorithms       | Quick sort divides the list using pivot and then sorts in recursive manner. It uses divide and conquer approach. |MCQ             |Quick sort divides the list using pivot and then sorts in recursive manner. It uses divide and conquer approach. |
+      | Data Structures and Algorithms       | Quick sort algorithm is an example of?                                                                           |MCQ             |Quick sort divides the list using pivot and then sorts in recursive manner. It uses divide and conquer approach. |
+      
+
   Scenario: 'View Problems by Topics'
     When I log in with hanna's information
     Then I click View Problems
@@ -28,8 +52,8 @@ Feature: question management by instructor
     Then I press "Create Problem"
     Then I should see "Problem created."
   
-  #For a MCQ question 
-  #Options filled and correct answer
+  # #For a MCQ question 
+  # #Options filled and correct answer
   Scenario: 'Add Problems by Topics for MCQ with options filled and answer checked'
     When I log in with hanna's information
     Then I click View Problems
@@ -39,8 +63,8 @@ Feature: question management by instructor
     Then I should see "Create New Problem"
     When I click Create new problem under Data Structures and Algorithms
     Then I should see "Create Problem"
-    When I select "MCQ" from "problem_question_type_id"
-    Then I fill in "Question" with "1"
+    When I select question type "MCQ" from "problem_question_type_id"
+    And I fill in "Question" with "1"
     And I fill in "Option 1" with "1"
     And I fill in "Option 2" with "2"
     And I fill in "Option 3" with "3"
