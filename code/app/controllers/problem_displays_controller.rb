@@ -1,5 +1,6 @@
 class ProblemDisplaysController < ApplicationController
-  before_action :require_valid_user!
+  # This line is commented for now. If you are working on user logins, you need to uncomment this line below
+  # before_action :require_valid_user!
   
   def quiz
     @topics = Topic.all
@@ -9,10 +10,8 @@ class ProblemDisplaysController < ApplicationController
     session[:topics] = params[:selected].select{|k,v| v=='1'}.keys.map{|v| v}
     session[:problems] = session[:topics].map{|v| Topic.find(v).problems.map{|w| w.id}}.flatten(1)
     session[:quiz_type] = params[:selected][:quiz_type]
-
     session[:current_problem] = 0
-
-
+    
     if(session[:problems].size == 0)
 
     end
