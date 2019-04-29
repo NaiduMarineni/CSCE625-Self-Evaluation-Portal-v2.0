@@ -17,26 +17,21 @@ img {
   <%= f.label :type %>
   <%= f.collection_select :question_type_id, @question_types, :id, :question_type%>
 
-  <% if @problem.img.present? %>
-    <%= f.label "Current Image" %>
-    <div class=row>
-      <div class=col-xs-6>
-        <%= image_tag "data:image/jpeg;base64,#{@problem.img}", id: 'q_img', class: 'img-responsive img-thumbnail', width: '400', height: '400' %>
-      </div>
-      <div class=col-xs-4>
-        <input type="button" name="remove" id="remove_img_btn" value="Remove" class="btn-sm btn-primary">
-      </div>
+  <%= f.label "Current Image" %>
+  <div class=row>
+    <div class=col-xs-6>
+      <%= image_tag "data:image/jpeg;base64,#{@problem.img}", id: 'q_img', class: 'img-responsive img-thumbnail', width: '400', height: '400' %>
     </div>
-    <br>
-    <%= f.label "Image Upload" %>
-    <%= f.file_field :img %>
-    <%# this to remove image default to Y - means image is present do nothing Y/N %>
-    <%= hidden_field_tag(:is_image, "Y") %>
-  <% else %>
-    <%= f.label "Image Upload" %>
-    <%= f.file_field :img %>
-  <% end %>
-
+    <div class=col-xs-4>
+      <input type="button" name="remove" id="remove_img_btn" value="Remove" class="btn-sm btn-primary">
+    </div>
+  </div>
+  <br>
+  <%= f.label "Image Upload" %>
+  <%= f.file_field :img %>
+  <%# this to remove image default to Y - means image is present do nothing Y/N %>
+  <%= hidden_field_tag(:is_image, "Y") %>
+  
   <%= f.label :question %>
   <%= f.text_area :question, placeholder: "Enter Question here", class: 'form-control' %>
   
@@ -91,12 +86,28 @@ var init = function(){
   $( "#remove_img_btn" ).click(function(){
     fn_remove_img();
   });
+
+  $("#problem_img").change(function(){
+    var file = document.querySelector('#problem_img').files[0];
+    getBase64(file);
+  });
 }
 
 var fn_remove_img = function(){
   document.getElementById('q_img').src = "#";
   $("#problem_img").val('');
   $("#is_image").val('N')
+}
+
+var getBase64 = function(file) {
+   var reader = new FileReader();
+   reader.readAsDataURL(file);
+   reader.onload = function () {
+    document.getElementById('q_img').src = reader.result
+   };
+   reader.onerror = function (error) {
+     console.log('Error: ', error);
+   };
 }
 
 $( document ).ready(function() {

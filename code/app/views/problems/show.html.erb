@@ -1,11 +1,26 @@
 <style>
 img {
   display: block;
-  max-width:230px;
-  max-height:95px;
+  max-width:250px;
+  max-height:100px;
   width: auto;
   height: auto;
 }
+
+.thumbnail:hover {
+    position:relative;
+    top:0px;
+    left:0px;
+    /* width:600px; */
+    /* height:600px; */
+    width: auto;
+    height: auto;
+    max-width:600px;
+    max-height:600px;
+    display:block;
+    z-index:999;
+}
+
 </style>
 
 <% provide(:title, "Problem "+@problem.id.to_s) %>
@@ -21,7 +36,7 @@ img {
       
       <% if @problem.img.present? %>
         <h1>Associated Image</h1>
-        <div class = "problemview"> <%= image_tag "data:image/jpeg;base64,#{@problem.img}", class: 'img-responsive img-thumbnail', width: '400', height: '400' %> <br></div>
+        <div class = "problemview"> <%= image_tag "data:image/jpeg;base64,#{@problem.img}", class: 'img-responsive img-thumbnail thumbnail', width: '400', height: '400' %> <br></div>
       <% end %>
 
       <h1>Answer: </h1>
