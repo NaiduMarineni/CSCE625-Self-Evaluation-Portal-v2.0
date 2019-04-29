@@ -4,10 +4,10 @@ require 'rails_helper.rb'
 
 describe InstructorsController do
   fixtures :instructors
-#   before(:each) do
-#     @instructor = instructors(:admin)
-#     @other_instructor = instructors(:hang)
-#   end
+  before(:each) do
+    @instructor = instructors(:admin)
+    @other_instructor = instructors(:hang)
+  end
   
 #   before(:each) do
 #     @instructor1 = create(:instructor, name:'admin', email:'admin@admin.com', password:'123456', 
@@ -19,7 +19,6 @@ describe InstructorsController do
 #   end
 
   it "have name" do
-    @instructor = instructors(:admin)
     print (@instructor.name)
     expect(Instructor.find_by_name('Admin')).to be_present
     expect(@instructor.admin).to eq true
@@ -36,33 +35,29 @@ describe InstructorsController do
 #     expect(response).to redirect_to(login_url)
   end
   
-#   it "should get new" do
-#     get signup_path
-#     expect(response).to redirect_to(:success)
-#   end
+  it "should get new" do
+    get :activate
+    expect(response).to render_template(:activate)
+  end
   
-#   it "should redirect edit when not logged in" do
-#     get edit_instructor_path(@instructor)
-#     assert_not flash.empty?
-#     redirect_to login_url
-#     #expect(response).to redirect_to(login_url)
-#   end
+  it "should redirect edit when not logged in" do
+    get :edit, :params=> {:id => @instructor}
+    expect(response).to redirect_to('/login')
+  end
 
-#   it "should redirect update when not logged in" do
-#     patch instructor_path(@instructor), params: { instructor: { name: @instructor.name,
-#                                               email: @instructor.email } }
-#     #assert_not flash.empty?
-#     #assert_redirected_to login_url
-#     expect(response).to redirect_to(login_url)
-#   end
+  it "should redirect update when not logged in" do
+    get :update, :params =>{:id => @instructor}
+    expect(response).to redirect_to('/login')
+  end
   
-#   it "should redirect edit when logged in as wrong user" do
-#     log_in_as(@other_instructor)
-#     get edit_instructor_path(@instructor)
-#     #assert flash.empty?
-#     #assert_redirected_to root_url
-#     expect(response).to redirect_to(root_url)
-#   end
+  it "should redirect edit when logged in as wrong user" do
+    SessionsController.post 
+    log_in_as(@other_instructor)
+    get edit_instructor_path(@instructor)
+    #assert flash.empty?
+    #assert_redirected_to root_url
+    expect(response).to redirect_to(root_url)
+  end
 
 #   it "should redirect update when logged in as wrong user" do
 #     log_in_as(@other_instructor)
