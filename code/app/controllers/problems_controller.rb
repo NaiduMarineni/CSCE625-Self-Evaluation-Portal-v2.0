@@ -167,7 +167,7 @@ class ProblemsController < ApplicationController
     if problem_params[:question_type_id].to_i == 1
       options = option_params
       if @problem.update_attributes(problem_params)
-        options_not_nil = false .
+        options_not_nil = false
         if !options[:correct].nil?
          options[:options].each do |key|
           if !options[:options][key].empty?
