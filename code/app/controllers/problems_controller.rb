@@ -23,6 +23,26 @@ class ProblemsController < ApplicationController
       puts @problem.img
     end
 
+    # image file upload here, check file upload size here
+    if problem_params[:img].present?
+      img_file =  problem_params[:img].tempfile.open.read.force_encoding(Encoding::UTF_8)
+      if (problem_params[:img].size.to_i > 65000) or !(['image/png', 'image/jpeg', 'image/jpg'].include? problem_params[:img].content_type)
+        flash.now[:danger] = "Please upload a valid image file that is less than 65KB in size!"
+        @topics = Topic.all
+        @question_types = QuestionType.all
+        @options = @problem.options
+        @links = @problem.links
+        render 'new'
+        return
+      end
+      problem_params[:img] = Base64.encode64(img_file)
+    else
+      if params[:is_image] == 'N'
+        # remove image if the user clicked on remove image in the view
+        problem_params[:img] = ''
+      end
+    end
+
     # Problem is MCQ
     if @problem[:question_type_id] == 1
       if @problem.save
