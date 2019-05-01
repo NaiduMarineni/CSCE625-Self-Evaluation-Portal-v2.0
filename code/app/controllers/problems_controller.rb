@@ -1,5 +1,7 @@
+require 'tempfile'
+
 class ProblemsController < ApplicationController
-    before_action :logged_in_instructor, only: [:new, :create, :index, :show, :edit, :update, :destroy]
+  before_action :logged_in_instructor, only: [:new, :create, :index, :show, :edit, :update, :destroy]
 
   def new
     @topics = Topic.all
@@ -13,6 +15,34 @@ class ProblemsController < ApplicationController
   def create
     @problem = Problem.new(problem_params)
     
+    # handle images here ... convert to base64
+    # image file upload here
+    if problem_params[:img].present?
+      img_file =  problem_params[:img].tempfile.open.read.force_encoding(Encoding::UTF_8)
+      @problem.img = Base64.encode64(img_file)
+      puts @problem.img
+    end
+
+    # image file upload here, check file upload size here
+    if problem_params[:img].present?
+      img_file =  problem_params[:img].tempfile.open.read.force_encoding(Encoding::UTF_8)
+      if (problem_params[:img].size.to_i > 65000) or !(['image/png', 'image/jpeg', 'image/jpg'].include? problem_params[:img].content_type)
+        flash.now[:danger] = "Please upload a valid image file that is less than 65KB in size!"
+        @topics = Topic.all
+        @question_types = QuestionType.all
+        @options = @problem.options
+        @links = @problem.links
+        render 'new'
+        return
+      end
+      problem_params[:img] = Base64.encode64(img_file)
+    else
+      if params[:is_image] == 'N'
+        # remove image if the user clicked on remove image in the view
+        problem_params[:img] = ''
+      end
+    end
+
     # Problem is MCQ
     if @problem[:question_type_id] == 1
       if @problem.save
@@ -92,7 +122,7 @@ class ProblemsController < ApplicationController
 
   def show
     @problem = Problem.find(params[:id])
-    @correct_answers = Array.new      
+    @correct_answers = Array.new
     if(@problem.question_type.question_type == "MCQ")
       @correct_answers = @problem.options.where("is_answer = true").pluck(:answer)
     end
@@ -111,6 +141,29 @@ class ProblemsController < ApplicationController
 
   def update
     @problem = Problem.find(params[:id])
+
+    # image file upload here, check file upload size here
+    if problem_params[:img].present?
+      img_file =  problem_params[:img].tempfile.open.read.force_encoding(Encoding::UTF_8)
+      puts problem_params[:img].content_type
+      puts problem_params[:img].size
+      if (problem_params[:img].size.to_i > 65000) or !(['image/png', 'image/jpeg', 'image/jpg'].include? problem_params[:img].content_type)
+        flash.now[:danger] = "Please upload a valid image file that is less than 65KB in size!"
+        @topics = Topic.all
+        @question_types = QuestionType.all
+        @options = @problem.options
+        @links = @problem.links
+        render 'edit'
+        return
+      end
+      problem_params[:img] = Base64.encode64(img_file)
+    else
+      if params[:is_image] == 'N'
+        # remove image if the user clicked on remove image in the view
+        problem_params[:img] = ''
+      end
+    end
+
     if problem_params[:question_type_id].to_i == 1
       options = option_params
       if @problem.update_attributes(problem_params)
@@ -146,12 +199,10 @@ class ProblemsController < ApplicationController
               flash[:danger] = "Empty options were discarded."
             end
           end
-          
           # Save any links
           update_link
           flash[:success] = "Problem updated."    
           redirect_to @problem
-          
         else
           flash.now[:danger] = "Provide answers and correct choices for MCQ."
           @topics = Topic.all
@@ -175,10 +226,8 @@ class ProblemsController < ApplicationController
         render 'edit'
       elsif @problem.update_attributes(problem_params)
         flash[:success] = "Problem updated."
-        
         @problem.options.destroy_all
         update_link
-        
         redirect_to @problem
       else
         render 'new'
@@ -196,7 +245,7 @@ class ProblemsController < ApplicationController
   private
 
   def problem_params
-    params.require(:problem).permit(:question, :answer, :remark, :topic_id, :question_type_id)
+    @problem_params ||= params.require(:problem).permit(:question, :answer, :remark, :topic_id, :question_type_id, :img, :options, :correct)
   end
 
   def instructor_params

@@ -1,5 +1,27 @@
 <% provide(:title, "Problem "+(@thisid+1).to_s) %>
 
+<style>
+img {
+  display: block;
+  max-width:250px;
+  max-height:100px;
+  width: auto;
+  height: auto;
+}
+
+.thumbnail:hover {
+    position:relative;
+    top:0px;
+    left:0px;
+    width: auto;
+    height: auto;
+    max-width:600px;
+    max-height:600px;
+    display:block;
+    z-index:999;
+}
+</style>
+
 <div class="row">
   <aside class="col-md-8 col-md-offset-2 col-xs-12">
     <h1>
@@ -14,6 +36,12 @@
 
       <h1>Question: </h1>
       <div class = "problemview"><%= simple_format(@problem.question) %></div>
+
+      <% if @problem.img.present? %>
+        <h1>Associated Image</h1>
+        <div class = "problemview"> <%= image_tag "data:image/jpeg;base64,#{@problem.img}", class: 'img-responsive img-thumbnail thumbnail', width: '400', height: '400' %> <br></div>
+      <% end %>
+
       <h1>Your Answer: </h1>
       <%= form_for(:student) do |f| %>
         <% if (@problem.question_type.question_type!="MCQ") %>

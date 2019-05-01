@@ -5,6 +5,14 @@ SimpleCov.start 'rails'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
+#require 'support/factory_girl'
+
+# RSpec.configure do |config|
+#   config.include FactoryGirl::Syntax::Methods
+# end
+
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
@@ -31,7 +39,9 @@ ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.fixture_path = "/home/ec2-user/environment/CSCE625-Self-Evaluation-Portal-v2.0/code/spec/fixtures"
+  #config.fixture_path = "/spec/fixtures"
+  #config.fixture_path = "#{::Rails.root}/test/fixtures"
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
