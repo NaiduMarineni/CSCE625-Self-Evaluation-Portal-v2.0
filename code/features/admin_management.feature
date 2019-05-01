@@ -1,8 +1,14 @@
 Feature: management by admin instructor
-  
+
   In order to manage the instructors
   As an admin instructor
   I want to be able to manage all other instructors
+  
+  Background: instructors in database
+    Given the following instructors exist:
+    | name        | email           | password     |password_confirmation | admin | activated |
+    | admin       | admin@admin.com |123456        |123456                |  true | true      |
+    | Hang Li     |hangli@tamu.edu  |123456        |123456                | true  | true      |
   
   Scenario: 'Delete an instructor'
     When I go check the log in page

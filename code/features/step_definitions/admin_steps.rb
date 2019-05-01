@@ -9,6 +9,10 @@ def go_to_login
     visit login_path
 end
 
+When(/'I press Log in/) do
+  login_with "admin@admin.com", "123456"
+end
+
 When(/^I log in with admin's information$/) do
   login_with "admin@admin.com", "123456"
 end

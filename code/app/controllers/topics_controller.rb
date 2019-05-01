@@ -7,7 +7,6 @@ class TopicsController < ApplicationController
   def create
     @topic = Topic.new(topic_params)
     if @topic.save
-      log_in @topic
       flash[:success] = "Create topic successfully."
       redirect_to @topic
     else
@@ -43,6 +42,7 @@ class TopicsController < ApplicationController
     flash[:success] = "Topic deleted."
     redirect_to topics_url
   end
+  
 
   private
 

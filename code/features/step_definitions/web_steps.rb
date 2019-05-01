@@ -31,6 +31,61 @@ module WithinHelpers
 end
 World(WithinHelpers)
 
+Given (/the following topics exist/) do |topics_table|
+  topics_table.hashes.each do |topic|
+    Topic.create! topic
+  end
+end
+
+Given (/the following instructors exist/) do |instructors_table|
+  instructors_table.hashes.each do |instructor|
+    #print(instructor)
+    Instructor.create! instructor
+  end
+end
+
+Given (/the following question types exist/) do |q_type_table|
+  q_type_table.hashes.each do |q_type|
+    print(q_type)
+    QuestionType.create! q_type
+  end
+end
+
+Given (/the following problems exist/) do |problems_table|
+  problems_table.hashes.each do |problem|
+    topic  = Topic.find_by_name(problem[:topic])
+    q_type = QuestionType.find_by_question_type(problem[:question_type])
+    p = topic.problems.create!(question: problem[:question], question_type: q_type, remark: problem[:remark])
+  end
+end
+
+Given (/the following MCQ problems exist/) do |problems_table|
+  problems_table.hashes.each do |problem|
+    topic  = Topic.find_by_name(problem[:topic])
+    q_type = QuestionType.find_by_question_type(problem[:question_type])
+    p = topic.problems.create!(question: problem[:question], question_type: q_type, remark: problem[:remark])
+    p.options.create!(answer: problem[:option1], is_answer: problem[:answer1]=='true'? true : false)
+    p.options.create!(answer: problem[:option2], is_answer: problem[:answer2]=='true'? true : false)
+    p.options.create!(answer: problem[:option3], is_answer: problem[:answer3]=='true'? true : false)
+    p.options.create!(answer: problem[:option4], is_answer: problem[:answer4]=='true'? true : false)
+  end
+end
+
+Given(/the following short problems exist/) do |short_problems_table|
+  short_problems_table.hashes.each do |short_problem|
+    topic = Topic.find_by_name(short_problem[:topic])
+    q_type = QuestionType.find_by_question_type(short_problem[:question_type])
+    p = topic.problems.create!(question: short_problem[:question], question_type: q_type, remark: short_problem[:remark], answer: short_problem[:answer])
+  end
+end
+
+
+Given (/the following students exist/) do |users_table|
+  users_table.hashes.each do |user|
+    User.create! user
+  end
+end
+
 # Single-line step scoper
 When /^(.*) within (.*[^:])$/ do |step, parent|
   with_scope(parent) { When step }
@@ -84,6 +139,16 @@ end
 
 When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
   select(value, :from => field)
+end
+
+When /^(?:|I )select question type "([^"]*)" from "([^"]*)"$/ do |value, field|
+  if value == 'MCQ'
+    option = find(:xpath, "//*[@id='#{field}']/option[1]").text
+  else
+    option = find(:xpath, "//*[@id='#{field}']/option[2]").text
+  end
+  puts option
+  select(option, :from => field)
 end
 
 When /^(?:|I )check "([^"]*)"$/ do |field|
