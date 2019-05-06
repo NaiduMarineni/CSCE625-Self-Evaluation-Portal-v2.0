@@ -25,8 +25,8 @@ Feature: question management by instructor
       
   
     Given the following problems exist:
-      | topic                                | question                                                                                                         |question_type   |remark                                                                                                           |
-      | Data Structures and Algorithms       | Quick sort algorithm is an example of?                                                                           |MCQ             |Quick sort divides the list using pivot and then sorts in recursive manner. It uses divide and conquer approach. |
+      | topic                                |img        | question                                                                                                         |question_type   |remark                                                                                                           |
+      | Data Structures and Algorithms       |           | Quick sort algorithm is an example of?                                                                           |MCQ             |Quick sort divides the list using pivot and then sorts in recursive manner. It uses divide and conquer approach. |
       
 
   Scenario: 'View Problems by Topics'
@@ -227,12 +227,93 @@ Feature: question management by instructor
     And I press "Save Changes"
     Then I should see "Answer can't be blank"
 
+ Scenario: 'Update Image for the question'
+    When I log in with hanna's information
+    Then I click View Problems
+    Then I should see "All problems"
+    And I should see "Quick sort algorithm is an example of?"
+    When I follow "Quick sort algorithm is an example of?"
+    Then I follow "Edit Problem"
+    Then I should see "Update Problem"
+    Then I upload a valid file
+    And I press "Save Changes"
+    Then I should see "Problem updated."
     
-  
+  Scenario: 'Add Problems by Topics with image upload valid'
+    When I log in with hanna's information
+    Then I click View Problems
+    Then I should see "All problems"
+    And I should see "Data Structures and Algorithms"
+    Then I click Data Structures and Algorithms
+    Then I should see "Create New Problem"
+    When I click Create new problem under Data Structures and Algorithms
+    Then I should see "Create Problem"
+    When I select question type "Short Answer" from "problem_question_type_id"
+    Then I fill in "Question" with "1"
+    And I fill in "Add answer for short answer questions below" with "1"
+    And I fill in "Remark" with "1"
+    Then I upload a valid file
+    Then I press "Create Problem"
+    Then I should see "Problem created."
+    
+  Scenario: 'Add Problems by Topics with image upload invalid'
+    When I log in with hanna's information
+    Then I click View Problems
+    Then I should see "All problems"
+    And I should see "Data Structures and Algorithms"
+    Then I click Data Structures and Algorithms
+    Then I should see "Create New Problem"
+    When I click Create new problem under Data Structures and Algorithms
+    Then I should see "Create Problem"
+    When I select question type "Short Answer" from "problem_question_type_id"
+    Then I fill in "Question" with "1"
+    And I fill in "Add answer for short answer questions below" with "1"
+    And I fill in "Remark" with "1"
+    Then I upload an invalid file
+    Then I press "Create Problem"
+    Then I should see "Please upload a valid image file that is less than 65KB in size!"
 
+  Scenario: 'Add Problems by Topics for MCQ with options filled and answer checked with valid image'
+    When I log in with hanna's information
+    Then I click View Problems
+    Then I should see "All problems"
+    And I should see "Data Structures and Algorithms"
+    Then I click Data Structures and Algorithms
+    Then I should see "Create New Problem"
+    When I click Create new problem under Data Structures and Algorithms
+    Then I should see "Create Problem"
+    When I select question type "MCQ" from "problem_question_type_id"
+    And I fill in "Question" with "1"
+    And I fill in "Option 1" with "1"
+    And I fill in "Option 2" with "2"
+    And I fill in "Option 3" with "3"
+    And I fill in "Option 4" with "4"
+    And I check "Option 1"
+    And I fill in "Remark" with "1"
+    And I fill in "Link" with "https://wikipedia.org"
+    Then I upload an invalid file
+    Then I press "Create Problem"
+    Then I should see "Please upload a valid image file that is less than 65KB in size!"
     
-    
-    
-    
-
+  Scenario: 'Add Problems by Topics for MCQ with options filled and answer checked with invalid image'
+    When I log in with hanna's information
+    Then I click View Problems
+    Then I should see "All problems"
+    And I should see "Data Structures and Algorithms"
+    Then I click Data Structures and Algorithms
+    Then I should see "Create New Problem"
+    When I click Create new problem under Data Structures and Algorithms
+    Then I should see "Create Problem"
+    When I select question type "MCQ" from "problem_question_type_id"
+    And I fill in "Question" with "1"
+    And I fill in "Option 1" with "1"
+    And I fill in "Option 2" with "2"
+    And I fill in "Option 3" with "3"
+    And I fill in "Option 4" with "4"
+    And I check "Option 1"
+    And I fill in "Remark" with "1"
+    And I fill in "Link" with "https://wikipedia.org"
+    Then I upload a valid file
+    Then I press "Create Problem"
+    Then I should see "Problem created."
     
