@@ -7,32 +7,13 @@ describe InstructorsController do
   before(:each) do
     @instructor = instructors(:admin)
     @other_instructor = instructors(:hang)
+    @user_1 = instructors(:user_1)
   end
-  
-#   before(:each) do
-#     @instructor1 = create(:instructor, name:'admin', email:'admin@admin.com', password:'123456', 
-#     password_confirmation:'123456', admin: true, activated: true)
-                                            
-#     @admin = FactoryGirl::Syntax::create(:admin)
-#     @hana = create(:hana)
-#     #@mock_results = [double(''), double('movie2')]
-#   end
 
   it "have name" do
     print (@instructor.name)
     expect(Instructor.find_by_name('Admin')).to be_present
     expect(@instructor.admin).to eq true
-   #expect(Teacher.count).to eq 0
-
-   #(:dan)
-
-#   expect(Student.find_by_name(@james.name).to be_blank
-#   expect(Student.count).to eq 2
-#   expect(Teacher.count).to eq 1
-#   it "should redirect index when not logged in" do
-#     get instructors_path
-#     #redirect_to login_url
-#     expect(response).to redirect_to(login_url)
   end
   
   it "should get new" do
@@ -51,38 +32,44 @@ describe InstructorsController do
   end
   
   it "should redirect edit when logged in as wrong user" do
-    SessionsController.post 
-    log_in_as(@other_instructor)
-    get edit_instructor_path(@instructor)
-    #assert flash.empty?
-    #assert_redirected_to root_url
-    expect(response).to redirect_to(root_url)
+    @controller = SessionsController.new
+      get :create, :params => { :session => { :email => @other_instructor.email, :password => @other_instructor.password, :remember_me => 1 } }
+    @controller = InstructorsController.new
+      get :edit, :params=> {:id => @instructor}
+    expect(response).to redirect_to('/login')
+    expect(flash.now[:danger]).to be_present
+  end
+  
+  # it "should edit when logged in as correct instructor" do
+  #   @controller = SessionsController.new
+  #     get :create, :params => { :session => { :email => @instructor.email, :password => @instructor.password, :remember_me => 1 } }
+  #   @controller = InstructorsController.new
+  #     get :edit, :params=> {:id => @user_1}
+  #   expect(response).to render_template(:edit)
+  #   #expect(flash.now[:danger]).to be_present
+  # end
+
+  it "should redirect update when logged in as wrong user" do
+    @controller = SessionsController.new
+      get :create, :params => { :session => { :email => @other_instructor.email, :password => @other_instructor.password, :remember_me => 1 } }
+    @controller = InstructorsController.new
+      get :update, :params=> {:id => @instructor}
+    expect(response).to redirect_to('/login')
+    expect(flash.now[:danger]).to be_present
+  end
+  
+  it "should redirect destroy when not logged in" do
+    get :destroy, :params =>{:id => @instructor}
+    expect(response).to redirect_to('/login')
   end
 
-#   it "should redirect update when logged in as wrong user" do
-#     log_in_as(@other_instructor)
-#     patch instructor_path(@instructor), params: { instructor: { name: @instructor.name,
-#                                               email: @instructor.email } }
-#     #assert flash.empty?
-#     #assert_redirected_to root_url
-#     expect(response).to redirect_to(root_url)
-#   end
-  
-#   it "should redirect destroy when not logged in" do
-#     assert_no_difference 'Instructor.count' do
-#       delete instructor_path(@instructor)
-#     end
-#     #assert_redirected_to login_url
-#     expect(response).to redirect_to(root_url)
-#   end
+  it "should redirect destroy when logged in as a non-admin" do
+    @controller = SessionsController.new
+      get :create, :params => { :session => { :email => @other_instructor.email, :password => @other_instructor.password, :remember_me => 1 } }
+    @controller = InstructorsController.new
+      get :destroy, :params=> {:id => @instructor}
+    expect(response).to redirect_to('/login')
+    expect(flash.now[:danger]).to be_present
+  end
 
-#   it "should redirect destroy when logged in as a non-admin" do
-#     log_in_as(@other_instructor)
-#     assert_no_difference 'Instructor.count' do
-#       delete instructor_path(@instructor)
-#     end
-#     #assert_redirected_to root_url
-#     expect(response).to redirect_to(root_url)
-#   end
-  
 end

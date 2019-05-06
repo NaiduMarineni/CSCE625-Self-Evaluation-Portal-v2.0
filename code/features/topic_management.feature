@@ -23,12 +23,12 @@ Feature: topic management by instructor
     Then I should see "All topics"
     
   Scenario: 'Create A New Topic'
-    When I go check the log in page
-    Then I should see "Log in"
-    And I fill in "Email" with "admin@admin.com"
-    And I fill in "Password" with "123456"
-    Then I press "Log in"
-    #When I log in with hanna's information
+    # When I go check the log in page
+    # Then I should see "Log in"
+    # And I fill in "Email" with "admin@admin.com"
+    # And I fill in "Password" with "123456"
+    # Then I press "Log in"
+    When I log in with hanna's information
     Then I click View Topics 
     Then I should see "Create New Topic"
     When I click Create new topic

@@ -43,8 +43,12 @@ class ProblemsController < ApplicationController
       end
     end
 
+    #print(@problem[:question_type_id])
+    id = QuestionType.find(@problem[:question_type_id])
+    #print(id.question_type)
     # Problem is MCQ
-    if @problem[:question_type_id] == 1
+    if id.question_type == "MCQ"
+      #print("MCQ")
       if @problem.save
         # Save problem first to add options(Options belongs to Problems)
         flash[:success] = "Problem created."
@@ -100,6 +104,7 @@ class ProblemsController < ApplicationController
       end
     # Problem is short answer type
     else
+      #print("Short Answer")
       if @problem[:answer].blank?
         flash.now[:danger] = "Answer can't be blank."
         @topics = Topic.all
@@ -164,7 +169,8 @@ class ProblemsController < ApplicationController
       end
     end
 
-    if problem_params[:question_type_id].to_i == 1
+    id = QuestionType.find(problem_params[:question_type_id])
+    if id.question_type == "MCQ"
       options = option_params
       if @problem.update_attributes(problem_params)
         options_not_nil = false
