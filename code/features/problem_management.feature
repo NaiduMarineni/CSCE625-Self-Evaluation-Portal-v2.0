@@ -23,8 +23,8 @@ Feature: question management by instructor
       | Short Answer  |
   
     Given the following problems exist:
-      | topic                                | question                                                                                                         |question_type   |remark                                                                                                           |
-      | Data Structures and Algorithms       | Quick sort algorithm is an example of?                                                                           |MCQ             |Quick sort divides the list using pivot and then sorts in recursive manner. It uses divide and conquer approach. |
+      | topic                                |img        | question                                                                                                         |question_type   |remark                                                                                                           |
+      | Data Structures and Algorithms       |           | Quick sort algorithm is an example of?                                                                           |MCQ             |Quick sort divides the list using pivot and then sorts in recursive manner. It uses divide and conquer approach. |
       
 
   Scenario: 'View Problems by Topics'
@@ -225,9 +225,17 @@ Feature: question management by instructor
     And I press "Save Changes"
     Then I should see "Answer can't be blank"
 
-    
-  
-
+ Scenario: 'Update Image for the question'
+    When I log in with hanna's information
+    Then I click View Problems
+    Then I should see "All problems"
+    And I should see "Quick sort algorithm is an example of?"
+    When I follow "Quick sort algorithm is an example of?"
+    Then I follow "Edit Problem"
+    Then I should see "Update Problem"
+    When I upload a valid file "test.png"
+    And I press "Save Changes"
+    Then I should see "Problem updated."
     
     
     

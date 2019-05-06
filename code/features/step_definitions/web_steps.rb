@@ -163,8 +163,16 @@ When /^(?:|I )choose "([^"]*)"$/ do |field|
   choose(field)
 end
 
-When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
-  attach_file(field, File.expand_path(path))
+When /^(?:|I )upload a valid file "([^"]*)"$/ do |field|
+  # attach_file(field, File.expand_path(path))
+  attach_file(:img, File.join(RAILS_ROOT, 'features', 'upload-files', 'valid_image.png'))
+  click_button(button)
+end
+
+When /^(?:|I )upload an invalid file "([^"]*)" to "([^"]*)"$/ do |path, field, button|
+  # attach_file(field, File.expand_path(path))
+  attach_file(:img, File.join(RAILS_ROOT, 'features', 'upload-files', 'invalid_image.jpg'))
+  click_button(button)
 end
 
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
