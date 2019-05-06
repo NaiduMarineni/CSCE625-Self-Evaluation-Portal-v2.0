@@ -34,13 +34,13 @@ Background: students in database
     When I am on the homepage 
     Then I should see "Start Evaluation!"
     And I start evaluation
-    Then I should see "Student Login"
-    And I fill in "Email" with "duopoka2@gmail.com"
-    And I fill in "Password" with "1234"
-    And I check "Remember me on this computer"
-    Then I press "Log in"
-    Then I should see "Thank you for loging in. You can start your evaluation now"
-    Then I start evaluation
+    # Then I should see "Student Login"
+    # And I fill in "Email" with "duopoka2@gmail.com"
+    # And I fill in "Password" with "1234"
+    # And I check "Remember me on this computer"
+    # Then I press "Log in"
+    # Then I should see "Thank you for loging in. You can start your evaluation now"
+    # Then I start evaluation
     Then I should see "Select Topics"
     Then I select "Quiz" from "Quiz type"
     Then I press "Select Topics"
@@ -58,13 +58,13 @@ Background: students in database
     When I am on the homepage 
     Then I should see "Start Evaluation!"
     And I start evaluation
-    Then I should see "Student Login"
-    And I fill in "Email" with "duopoka2@gmail.com"
-    And I fill in "Password" with "1234"
-    And I check "Remember me on this computer"
-    Then I press "Log in"
-    Then I should see "Thank you for loging in. You can start your evaluation now"
-    Then I start evaluation
+    # Then I should see "Student Login"
+    # And I fill in "Email" with "duopoka2@gmail.com"
+    # And I fill in "Password" with "1234"
+    # And I check "Remember me on this computer"
+    # Then I press "Log in"
+    # Then I should see "Thank you for loging in. You can start your evaluation now"
+    # Then I start evaluation
     Then I should see "Select Topics"
     Then I select "Quiz" from "Quiz type"
     Then I press "Select Topics"
@@ -82,13 +82,13 @@ Background: students in database
      When I am on the homepage 
     Then I should see "Start Evaluation!"
     And I start evaluation
-    Then I should see "Student Login"
-    And I fill in "Email" with "duopoka2@gmail.com"
-    And I fill in "Password" with "1234"
-    And I check "Remember me on this computer"
-    Then I press "Log in"
-    Then I should see "Thank you for loging in. You can start your evaluation now"
-    Then I start evaluation
+    # Then I should see "Student Login"
+    # And I fill in "Email" with "duopoka2@gmail.com"
+    # And I fill in "Password" with "1234"
+    # And I check "Remember me on this computer"
+    # Then I press "Log in"
+    # Then I should see "Thank you for loging in. You can start your evaluation now"
+    # Then I start evaluation
     Then I should see "Select Topics"
     Then I select "Quiz" from "Quiz type"
     Then I press "Select Topics"
@@ -103,13 +103,13 @@ Background: students in database
   Scenario: 'Start Evaluation'
     When I am on the homepage 
     Then I should see "Start Evaluation!"
-    And I start evaluation
-    Then I should see "Student Login"
-    And I fill in "Email" with "duopoka2@gmail.com"
-    And I fill in "Password" with "1234"
-    And I check "Remember me on this computer"
-    Then I press "Log in"
-    Then I should see "Thank you for loging in. You can start your evaluation now"
+    # And I start evaluation
+    # Then I should see "Student Login"
+    # And I fill in "Email" with "duopoka2@gmail.com"
+    # And I fill in "Password" with "1234"
+    # And I check "Remember me on this computer"
+    # Then I press "Log in"
+    # Then I should see "Thank you for loging in. You can start your evaluation now"
     Then I start evaluation
     Then I should see "Select Topics"
     Then I select "Quiz" from "Quiz type"
@@ -139,13 +139,13 @@ Background: students in database
      When I am on the homepage 
     Then I should see "Start Evaluation!"
     And I start evaluation
-    Then I should see "Student Login"
-    And I fill in "Email" with "duopoka2@gmail.com"
-    And I fill in "Password" with "1234"
-    And I check "Remember me on this computer"
-    Then I press "Log in"
-    Then I should see "Thank you for loging in. You can start your evaluation now"
-    Then I start evaluation
+    # Then I should see "Student Login"
+    # And I fill in "Email" with "duopoka2@gmail.com"
+    # And I fill in "Password" with "1234"
+    # And I check "Remember me on this computer"
+    # Then I press "Log in"
+    # Then I should see "Thank you for loging in. You can start your evaluation now"
+    # Then I start evaluation
     Then I should see "Select Topics"
     Then I select "Quiz" from "Quiz type"
     Then I press "Select Topics"
@@ -163,13 +163,13 @@ Background: students in database
     When I am on the homepage 
     Then I should see "Start Evaluation!"
     And I start evaluation
-    Then I should see "Student Login"
-    And I fill in "Email" with "duopoka2@gmail.com"
-    And I fill in "Password" with "1234"
-    And I check "Remember me on this computer"
-    Then I press "Log in"
-    Then I should see "Thank you for loging in. You can start your evaluation now"
-    Then I start evaluation
+    # Then I should see "Student Login"
+    # And I fill in "Email" with "duopoka2@gmail.com"
+    # And I fill in "Password" with "1234"
+    # And I check "Remember me on this computer"
+    # Then I press "Log in"
+    # Then I should see "Thank you for loging in. You can start your evaluation now"
+    # Then I start evaluation
     Then I should see "Select Topics"
     Then I select "Quiz" from "Quiz type"
     Then I press "Select Topics"
@@ -187,13 +187,13 @@ Background: students in database
     When I am on the homepage 
     Then I should see "Start Evaluation!"
     And I start evaluation
-    Then I should see "Student Login"
-    And I fill in "Email" with "duopoka2@gmail.com"
-    And I fill in "Password" with "1234"
-    And I check "Remember me on this computer"
-    Then I press "Log in"
-    Then I should see "Thank you for loging in. You can start your evaluation now"
-    Then I start evaluation
+    # Then I should see "Student Login"
+    # And I fill in "Email" with "duopoka2@gmail.com"
+    # And I fill in "Password" with "1234"
+    # And I check "Remember me on this computer"
+    # Then I press "Log in"
+    # Then I should see "Thank you for loging in. You can start your evaluation now"
+    # Then I start evaluation
     Then I should see "Select Topics"
     Then I select "Quiz" from "Quiz type"
     Then I press "Select Topics"
