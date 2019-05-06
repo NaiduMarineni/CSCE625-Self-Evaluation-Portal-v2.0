@@ -21,6 +21,8 @@ Feature: question management by instructor
       | question_type |
       | MCQ           |
       | Short Answer  |
+      
+      
   
     Given the following problems exist:
       | topic                                | question                                                                                                         |question_type   |remark                                                                                                           |
@@ -44,7 +46,7 @@ Feature: question management by instructor
     Then I should see "Create New Problem"
     When I click Create new problem under Data Structures and Algorithms
     Then I should see "Create Problem"
-    When I select "Short Answer" from "problem_question_type_id"
+    When I select question type "Short Answer" from "problem_question_type_id"
     Then I fill in "Question" with "1"
     And I fill in "Add answer for short answer questions below" with "1"
     And I fill in "Remark" with "1"
@@ -83,7 +85,7 @@ Feature: question management by instructor
     Then I should see "Create New Problem"
     When I click Create new problem under Data Structures and Algorithms
     Then I should see "Create Problem"
-    When I select "MCQ" from "problem_question_type_id"
+    When I select question type "MCQ" from "problem_question_type_id"
     Then I fill in "Question" with "1"
     And I fill in "Option 1" with "1"
     And I fill in "Option 2" with "2"
@@ -102,7 +104,7 @@ Feature: question management by instructor
     Then I should see "Create New Problem"
     When I click Create new problem under Data Structures and Algorithms
     Then I should see "Create Problem"
-    When I select "MCQ" from "problem_question_type_id"
+    When I select question type "MCQ" from "problem_question_type_id"
     Then I fill in "Question" with "1"
     And I fill in "Remark" with "1"
     Then I press "Create Problem"
@@ -117,7 +119,7 @@ Feature: question management by instructor
     Then I should see "Create New Problem"
     When I click Create new problem under Data Structures and Algorithms
     Then I should see "Create Problem"
-    When I select "MCQ" from "problem_question_type_id"
+    When I select question type "MCQ" from "problem_question_type_id"
     Then I fill in "Question" with "1"
     Then I fill in "Option 1" with "1"
     Then I fill in "Option 2" with "1"
@@ -135,7 +137,7 @@ Feature: question management by instructor
     Then I should see "Create New Problem"
     When I click Create new problem under Data Structures and Algorithms
     Then I should see "Create Problem"
-    When I select "Short Answer" from "problem_question_type_id"
+    When I select question type "Short Answer" from "problem_question_type_id"
     Then I fill in "Question" with "1"
     And I fill in "Add answer for short answer questions below" with ""
     And I fill in "Remark" with "1"
@@ -150,7 +152,7 @@ Feature: question management by instructor
     When I follow "Quick sort algorithm is an example of?"
     Then I follow "Edit Problem"
     Then I should see "Update Problem"
-    When I select "Short Answer" from "problem_question_type_id"
+    When I select question type "Short Answer" from "problem_question_type_id"
     And I fill in "Add answer for short answer questions below" with "Divide and Conquer"
     Then I fill in "Remark" with "1"
     And I press "Save Changes"
@@ -164,7 +166,7 @@ Feature: question management by instructor
     When I follow "Quick sort algorithm is an example of?"
     Then I follow "Edit Problem"
     Then I should see "Update Problem"
-    When I select "MCQ" from "problem_question_type_id"
+    When I select question type "MCQ" from "problem_question_type_id"
     And I fill in "Option 2" with "Binary Search"
     Then I fill in "Remark" with "1"
     And I press "Save Changes"
@@ -178,7 +180,7 @@ Feature: question management by instructor
     When I follow "Quick sort algorithm is an example of?"
     Then I follow "Edit Problem"
     Then I should see "Update Problem"
-    When I select "MCQ" from "problem_question_type_id"
+    When I select question type "MCQ" from "problem_question_type_id"
     And I uncheck "Option 4"
     Then I fill in "Remark" with "1"
     And I press "Save Changes"
@@ -192,7 +194,7 @@ Feature: question management by instructor
     When I follow "Quick sort algorithm is an example of?"
     Then I follow "Edit Problem"
     Then I should see "Update Problem"
-    When I select "MCQ" from "problem_question_type_id"
+    When I select question type "MCQ" from "problem_question_type_id"
     And I fill in "Option 1" with ""
     And I fill in "Option 2" with ""
     And I fill in "Option 3" with ""
