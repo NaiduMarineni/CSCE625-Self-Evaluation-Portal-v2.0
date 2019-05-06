@@ -40,14 +40,25 @@ end
 Given (/the following instructors exist/) do |instructors_table|
   instructors_table.hashes.each do |instructor|
     #print(instructor)
-    Instructor.create! instructor
+    instruct_id = Instructor.find_by_email(instructor[:email])
+    if !instruct_id
+      Instructor.create! instructor
+    else
+      Instructor.destroy instruct_id.id
+      Instructor.create! instructor
+    end 
   end
 end
 
 Given (/the following question types exist/) do |q_type_table|
   q_type_table.hashes.each do |q_type|
-    print(q_type)
-    QuestionType.create! q_type
+    type  = QuestionType.find_by_question_type(q_type[:question_type])
+    if !type
+      QuestionType.create! q_type
+    else
+      QuestionType.destroy type.id
+      QuestionType.create! q_type
+    end
   end
 end
 
@@ -142,7 +153,7 @@ When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
 end
 
 When /^(?:|I )select question type "([^"]*)" from "([^"]*)"$/ do |value, field|
-  if value == 'MCQ'
+  if value == "MCQ"
     option = find(:xpath, "//*[@id='#{field}']/option[1]").text
   else
     option = find(:xpath, "//*[@id='#{field}']/option[2]").text
