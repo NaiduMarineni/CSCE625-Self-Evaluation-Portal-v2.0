@@ -20,7 +20,6 @@ class ProblemsController < ApplicationController
     if problem_params[:img].present?
       img_file =  problem_params[:img].tempfile.open.read.force_encoding(Encoding::UTF_8)
       @problem.img = Base64.encode64(img_file)
-      puts @problem.img
     end
 
     # image file upload here, check file upload size here

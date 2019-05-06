@@ -174,16 +174,12 @@ When /^(?:|I )choose "([^"]*)"$/ do |field|
   choose(field)
 end
 
-When /^(?:|I )upload a valid file "([^"]*)"$/ do |field|
-  # attach_file(field, File.expand_path(path))
-  attach_file(:img, File.join(RAILS_ROOT, 'features', 'upload-files', 'valid_image.png'))
-  click_button(button)
+Then /^(?:|I )upload a valid file$/ do
+  attach_file(:problem_img, File.join(Rails.root, 'features', 'upload-files', 'valid_image.png'))
 end
 
-When /^(?:|I )upload an invalid file "([^"]*)" to "([^"]*)"$/ do |path, field, button|
-  # attach_file(field, File.expand_path(path))
-  attach_file(:img, File.join(RAILS_ROOT, 'features', 'upload-files', 'invalid_image.jpg'))
-  click_button(button)
+Then /^(?:|I )upload an invalid file$/ do
+  attach_file(:problem_img, File.join(Rails.root, 'features', 'upload-files', 'invalid_image.jpg'))
 end
 
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
