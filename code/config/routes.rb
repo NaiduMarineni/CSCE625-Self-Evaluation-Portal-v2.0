@@ -21,17 +21,19 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
 
   #userlogin routes
+  # NOTE : These routes are not active, user login is complete but need to be integrated meaningfully into this application.
+  # TODO for the next iteration/project semester
+  # Needs user login password recovery option
+  # can be used to save user session progress for the quiz - not implemented yet
   get '/user_login', to: 'users#user_login'
   post '/user_login_post', to: 'users#user_login_post'
   get '/user_signup', to: 'users#user_signup'
   post '/user_signup_post', to: 'users#user_signup_post'
   delete '/user_logout', to: 'users#user_logout'
 
-
   get '/new_topic', to: 'topics#new'
   get '/new_problem', to: 'problems#new'
   # post '/new_topic', to: 'topics#create'
-
 
   get '/quiz', to: 'problem_displays#quiz'
   post '/quiz', to: 'problem_displays#selected'
