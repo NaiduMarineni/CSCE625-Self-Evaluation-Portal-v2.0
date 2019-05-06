@@ -82,38 +82,51 @@ img {
 
 <script>
 var init = function(){
+
   // intialize event listeners here
   $( "#remove_img_btn" ).click(function(){
     fn_remove_img();
   });
 
   $("#problem_question_type_id").change(function(){
-    console.log(this.selectedIndex);
-    console.log("here");
     if (this.selectedIndex == 1){
-      $("label[for=problem_add_options]").hide()
-      $("#options").hide()
-      $("#new_option").hide()
-
-      $("label[for=problem_answer]").show()
-      $("#problem_answer").show()
+      fn_options_hide();
+      fn_shortanswer_show();
     }else{
-      $("label[for=problem_add_options]").show()
-      $("#options").show()
-      $("#new_option").show()
-
-      $("label[for=problem_answer]").hide()
-      $("#problem_answer").hide()
+      fn_options_show();
+      fn_shortanswer_hide();
     }
   });
   
-  $("label[for=problem_answer]").hide()
-  $("#problem_answer").hide()
-
   $("#problem_img").change(function(){
     var file = document.querySelector('#problem_img').files[0];
     getBase64(file);
   });
+
+  // show mcq initially
+  fn_options_show();
+}
+
+var fn_options_show = function(){
+  $("label[for=problem_add_options]").show()
+  $("#options").show()
+  $("#new_option").show()
+}
+
+var fn_options_hide = function(){
+  $("label[for=problem_add_options]").hide()
+  $("#options").hide()
+  $("#new_option").hide()
+}
+
+var fn_shortanswer_show = function(){
+  $("label[for=problem_answer]").show()
+  $("#problem_answer").show()
+}
+
+var fn_shortanswer_hide = function(){
+  $("label[for=problem_answer]").hide()
+  $("#problem_answer").hide()
 }
 
 var fn_remove_img = function(){
