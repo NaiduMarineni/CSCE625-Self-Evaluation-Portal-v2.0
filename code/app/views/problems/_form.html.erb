@@ -38,7 +38,7 @@ img {
   <%= f.label :answer, "Add answer for short answer questions below" %>
   <%= f.text_area :answer, placeholder: "Enter Answer here", class: 'form-control' %>
   
-  <%= f.label "Add options for multiple-choice (select the correct answer)" %>
+  <%= f.label "add_options" %>
   
   <div id = 'options'>
   <% if (@options.present? && !@options.empty?) %>
@@ -70,7 +70,7 @@ img {
   
   <%= link_to 'Add New Option',
         '',
-        :onclick => "addNewOption(this); return false",
+        :onclick => "addNewOption(this); return false", :id => "new_option",
         class: 'col-md-12 mb15px'%>
   
   <input type="text" name="problem[link]" placeholder="Link", class='form-control' <% if(@links.present?) %> value="<%= @links.first.link %>" <%end%> />
@@ -86,6 +86,29 @@ var init = function(){
   $( "#remove_img_btn" ).click(function(){
     fn_remove_img();
   });
+
+  $("#problem_question_type_id").change(function(){
+    console.log(this.selectedIndex);
+    console.log("here");
+    if (this.selectedIndex == 1){
+      $("label[for=problem_add_options]").hide()
+      $("#options").hide()
+      $("#new_option").hide()
+
+      $("label[for=problem_answer]").show()
+      $("#problem_answer").show()
+    }else{
+      $("label[for=problem_add_options]").show()
+      $("#options").show()
+      $("#new_option").show()
+
+      $("label[for=problem_answer]").hide()
+      $("#problem_answer").hide()
+    }
+  });
+  
+  $("label[for=problem_answer]").hide()
+  $("#problem_answer").hide()
 
   $("#problem_img").change(function(){
     var file = document.querySelector('#problem_img').files[0];
@@ -113,4 +136,7 @@ var getBase64 = function(file) {
 $( document ).ready(function() {
     init();
 });
+
+
+
 </script>
