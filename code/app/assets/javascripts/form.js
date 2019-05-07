@@ -6,7 +6,7 @@
     });*/
     
     function removeOption(data){
-      let options_count  = $(data).parent().parent().children().size();
+      var options_count  = $(data).parent().parent().children().size();
 
       console.log(options_count);
       if (options_count > 2){
