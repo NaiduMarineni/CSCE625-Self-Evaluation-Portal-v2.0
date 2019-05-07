@@ -12,4 +12,4 @@ Initial code is taken as it is from this repo - https://github.com/aditya30394/S
 
 The code is deployed to heroku and running at - https://arcane-reef-17079.herokuapp.com/ .
 
-The app is also running at - https://shielded-dusk-40867.herokuapp.com/ (Professor Dr DUncan Walker's Heroku account).
+The app is also running at - https://shielded-dusk-40867.herokuapp.com/ (Professor Dr Hank Walker's Heroku account).
