@@ -8,6 +8,6 @@ The requirements for the project were provided by Dr Duncan Walker, Professor, T
 University. The key stakeholders of this project are prospective students, teaching assistants, and
 the course instructors.
 
-Initial code is taken as it is from this repo - https://github.com/aditya30394/Self-Evaluation-Portal-CSCE625 
-The code is deployed to heroku and running at - https://arcane-reef-17079.herokuapp.com/
-The app is also running at - https://shielded-dusk-40867.herokuapp.com/ (Professor Dr DUncan Walker's Heroku account)
+Initial code is taken as it is from this repo - https://github.com/aditya30394/Self-Evaluation-Portal-CSCE625 .
+The code is deployed to heroku and running at - https://arcane-reef-17079.herokuapp.com/ .
+The app is also running at - https://shielded-dusk-40867.herokuapp.com/ (Professor Dr DUncan Walker's Heroku account).
