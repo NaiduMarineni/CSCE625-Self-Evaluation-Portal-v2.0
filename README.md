@@ -9,12 +9,3 @@ University. The key stakeholders of this project are prospective students, teach
 the course instructors.
 
 Initial code is taken as it is from this repo - https://github.com/aditya30394/Self-Evaluation-Portal-CSCE625 
-
-**Summary of Iterations**
-
-Iteration 0 : Met the customer to understand the improvements required for the existing application and formulated the requirements.
-The team worked on creating UI mockups and on drafting user stories.
-
-
-● **Pivotal tracker** : https://www.pivotaltracker.com/n/projects/2317545 
-
